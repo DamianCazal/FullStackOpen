@@ -1,15 +1,9 @@
-  const Part = ({part}) => {
-    return (
-      <>
-        <p>{part.name} {part.exercises}</p>
-      </>
-    )
-  }
+import Part from './Part'
 
 const Content = ({ parts }) => {
   return (
     <div>
-      {parts.map( part => <Part part={part} />)}
+      {parts.map( part => <Part key={part.id} part={part} />)}
     </div>
   );
 }
