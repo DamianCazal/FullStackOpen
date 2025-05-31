@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import personsService from './services/persons'
+import Notification from './components/Notification'
 
 function App() {
 
@@ -18,6 +19,19 @@ function App() {
   const [newPhone, setNewPhone] = useState('')
   const [Search, setSearch] = useState(false)
   const [array, setArray] = useState([])
+  const [changedPerson, setChangedPerson] = useState(null)
+
+  const showMessage = (name, change, isSuccess) => {
+    if (isSuccess) {
+      setChangedPerson(`${change} ${name}`)
+    } else {
+      setChangedPerson(`${change} ${name} has already been removed from server`)
+    }
+    setTimeout(() => {
+      setChangedPerson(null)
+    }, 2000)
+
+  }
 
   const handlePersons = (e) => {
     e.preventDefault()
@@ -32,13 +46,22 @@ function App() {
     if (isRepeated) {
       if (window.confirm(`${newName} is al ready added to phonebook, replace the old number witch a new one?`)) {
         personsService
-        .update(isRepeatedId.id, newPerson)
-        .then(response => setPersons(persons.map( person => person.id === isRepeatedId.id ? response : person)))
+          .update(isRepeatedId.id, newPerson)
+          .then(response => {
+            setPersons(persons.map(person => person.id === isRepeatedId.id ? response : person));
+            showMessage(response.name, 'Change', true)
+          })
+          .catch(error => {
+            showMessage(newPerson.name, 'Information of', false)
+          })
       }
     } else {
       personsService
         .create(newPerson)
-        .then(response => setPersons(persons.concat(response)))
+        .then(response => {
+          setPersons(persons.concat(response));
+          showMessage(response.name, 'Added', true)
+        })
     }
   }
 
@@ -75,6 +98,7 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={changedPerson} />
       <Filter event={changeInputSearch} />
       <h2>Add a new </h2>
       <PersonForm stateInputName={newName} eventName={changeInputName} stateInputPhone={newPhone} eventPhone={changeInputPhone} eventPersons={handlePersons} />

@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "1"
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": "2"
@@ -21,14 +16,14 @@
       "id": "4"
     },
     {
-      "name": "Damian Cazal",
-      "number": "11111111",
-      "id": "8cff"
+      "name": "Rodrigo Freire",
+      "number": "2222222",
+      "id": "e1f5"
     },
     {
-      "id": "252f",
-      "name": "Leila Cazal",
-      "number": "65946984"
+      "id": "b05e",
+      "name": "Ana Maria",
+      "number": "2222222"
     }
   ]
 }
