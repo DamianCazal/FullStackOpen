@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+../BackPhoneBook/
+
 .env
 
 # Editor directories and files
